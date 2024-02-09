@@ -5,10 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -29,15 +26,17 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return "{md5}" + md5(rawPassword);
+        return "{b4md5}" + md5(rawPassword);
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
 
-        if (encodedPassword.startsWith("{md5}")) {
-            String encoded = encodedPassword.substring(5); // Remove prefix
+        if (encodedPassword.startsWith("{b4md5}")) {
+            String encoded = encodedPassword; 
             String encodedRawPassword = encode(rawPassword);
+
+            
             return encoded.equals(encodedRawPassword);
         } else {
             throw new IllegalArgumentException("unsupported encoder");
@@ -45,11 +44,4 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        DelegatingPasswordEncoder delegatingPasswordEncoder = (DelegatingPasswordEncoder) PasswordEncoderFactories
-                .createDelegatingPasswordEncoder();
-        delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(new CustomPasswordEncoder());
-        return delegatingPasswordEncoder;
-    }
 }
