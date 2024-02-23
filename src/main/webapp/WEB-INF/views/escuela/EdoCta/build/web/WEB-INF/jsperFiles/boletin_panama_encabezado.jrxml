@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 5.5.2  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boletin_panama_encabezado" language="groovy" pageWidth="612" pageHeight="792" columnWidth="564" leftMargin="34" rightMargin="14" topMargin="22" bottomMargin="20" uuid="14a0f6bc-4f9c-4d0a-9626-02eac7d7b776">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Daniel\\Google Drive\\netbeans projects\\EdoCta\\web\\WEB-INF\\jsperFiles\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="calificaciones" class="net.sf.jasperreports.engine.JRDataSource">
+		<fieldDescription><![CDATA[calificaciones]]></fieldDescription>
+	</field>
+	<field name="lsCal" class="java.util.Collection">
+		<fieldDescription><![CDATA[lsCal]]></fieldDescription>
+	</field>
+	<field name="area" class="java.lang.String">
+		<fieldDescription><![CDATA[area]]></fieldDescription>
+	</field>
+	<field name="ciclo" class="java.lang.String">
+		<fieldDescription><![CDATA[ciclo]]></fieldDescription>
+	</field>
+	<field name="codigo_estudiante" class="java.lang.String">
+		<fieldDescription><![CDATA[codigo_estudiante]]></fieldDescription>
+	</field>
+	<field name="escuela" class="java.lang.String">
+		<fieldDescription><![CDATA[escuela]]></fieldDescription>
+	</field>
+	<field name="logo" class="java.lang.String">
+		<fieldDescription><![CDATA[logo]]></fieldDescription>
+	</field>
+	<field name="nivel" class="java.lang.String">
+		<fieldDescription><![CDATA[nivel]]></fieldDescription>
+	</field>
+	<field name="nombre_consejera" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre_consejera]]></fieldDescription>
+	</field>
+	<field name="nombre_estudiante" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre_estudiante]]></fieldDescription>
+	</field>
+	<field name="director" class="java.lang.String">
+		<fieldDescription><![CDATA[director]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="observacionA1" class="java.lang.String"/>
+	<field name="observacionB1" class="java.lang.String"/>
+	<field name="observacionA2" class="java.lang.String"/>
+	<field name="observacionB2" class="java.lang.String"/>
+	<field name="observacionA3" class="java.lang.String"/>
+	<field name="observacionB3" class="java.lang.String"/>
+	<field name="faltaA" class="java.lang.String"/>
+	<field name="faltaB" class="java.lang.String"/>
+	<field name="faltaC" class="java.lang.String"/>
+	<field name="tardanzaA" class="java.lang.String"/>
+	<field name="tardanzaB" class="java.lang.String"/>
+	<field name="tardanzaC" class="java.lang.String"/>
+	<group name="dsReportgp" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{area}]]></groupExpression>
+		<groupHeader>
+			<band height="145">
+				<rectangle>
+					<reportElement x="290" y="111" width="253" height="16" uuid="799c7f76-a9ce-4f96-bd3e-296e3fa870b4"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="11" y="127" width="279" height="18" uuid="21b9397b-42e7-4086-8c60-0918af9a01b5"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="11" y="111" width="279" height="16" uuid="d5bba1f5-89e0-46a1-bf06-b3570d1e281c"/>
+				</rectangle>
+				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+					<reportElement x="0" y="1" width="68" height="64" uuid="3cddbd68-2934-4976-a8eb-602e48dfe77d"/>
+					<imageExpression><![CDATA[$F{logo}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="68" y="36" width="424" height="34" uuid="fa2c244f-e133-4249-ae10-d19f481648d3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{escuela}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="426" y="95" width="117" height="16" uuid="1093ffaa-2699-41ca-bd34-ffac783564ca"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Año Lectivo: "+ $F{ciclo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="11" y="95" width="116" height="16" uuid="2734dcaa-2dea-451f-850f-509d483f4bb4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Informe Trimestral]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToBandHeight" x="14" y="111" width="275" height="16" uuid="195495e2-2633-4220-b6e5-7c5e8efeb6ee"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Estudiante: " + $F{nombre_estudiante}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="14" y="127" width="275" height="18" uuid="1ddff017-2841-4ab0-b449-ae0e2a1e97fb"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["No. Cédula: " + $F{codigo_estudiante}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="300" y="111" width="243" height="16" uuid="bd3cf3a2-56f5-45d7-aa80-fac878986b47"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Consejero(a): " + $F{nombre_consejera}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="290" y="127" width="253" height="18" uuid="6784c763-9bd1-4201-88be-ccd2b61e547f"/>
+				</rectangle>
+				<textField>
+					<reportElement x="300" y="127" width="243" height="18" uuid="960f45a6-5594-48a6-9a06-b776f948aa02"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Nivel: " + $F{nivel}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="442" y="132" width="80" height="10" uuid="46b1fb1f-8afe-4c72-b4ec-d59f3f008078"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="522" y="132" width="40" height="10" uuid="d4330f7f-17e0-43b5-8dc9-839cb987202a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="455" y="0" width="86" height="35" uuid="a01c4812-e186-4983-bf31-d39ab7b24946"/>
+					<imageExpression><![CDATA["MEDUCA.gif"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="68" y="0" width="424" height="18" uuid="35be5178-64a0-4ad9-9d71-3a41d3aca23b"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REPÚBLICA DE PANAMÁ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="68" y="18" width="424" height="18" uuid="c3167341-5802-4fce-8734-0acafe7ce80e"/>
+					<textElement textAlignment="Center">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[MINISTERIO DE EDUCACIÓN]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="70" width="559" height="25" uuid="d1f6dd5e-1b2e-4eb0-b492-fab1974bef55"/>
+					<textElement textAlignment="Center" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="14">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="11" y="0" width="378" height="14" uuid="5a4637bb-2979-48d2-b7ea-3d7c48cbbe12"/>
+				<dataSourceExpression><![CDATA[$F{calificaciones}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["boletin_panama.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="13" width="100" height="1" uuid="7262a739-47b1-4e19-85b1-47dba1a30cae"/>
+			</break>
+			<subreport>
+				<reportElement positionType="Float" x="389" y="0" width="160" height="14" printWhenGroupChanges="dsReportgp" uuid="9aff5d56-6f19-4904-863f-61a6ab044a90"/>
+				<subreportParameter name="director">
+					<subreportParameterExpression><![CDATA[$F{director}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Parameter1">
+					<subreportParameterExpression><![CDATA[$F{observacionA1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Parameter2">
+					<subreportParameterExpression><![CDATA[$F{observacionB1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Parameter3">
+					<subreportParameterExpression><![CDATA[$F{observacionA2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Parameter4">
+					<subreportParameterExpression><![CDATA[$F{observacionB2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Parameter5">
+					<subreportParameterExpression><![CDATA[$F{observacionA3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Parameter6">
+					<subreportParameterExpression><![CDATA[$F{observacionB3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fA">
+					<subreportParameterExpression><![CDATA[$F{faltaA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fB">
+					<subreportParameterExpression><![CDATA[$F{faltaB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fC">
+					<subreportParameterExpression><![CDATA[$F{faltaC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tA">
+					<subreportParameterExpression><![CDATA[$F{tardanzaA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tB">
+					<subreportParameterExpression><![CDATA[$F{tardanzaB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tC">
+					<subreportParameterExpression><![CDATA[$F{tardanzaC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA["columna_derecha.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>
