@@ -1,4 +1,4 @@
-<%@ page buffer= "none" %>
+<!-- <%@ page buffer= "none" %>
 <%@ page import="java.sql.*"%>
 <%@ page import="aca.menu.*"%>
 <%@ page import="java.util.ArrayList"%>
@@ -83,7 +83,7 @@
 					admin 		= "-------";
 				}
 				
-				// Sesión
+				// Sesiï¿½n
 				HttpSession sesion = request.getSession();
 				//sesion.setMaxInactiveInterval(18000);
 				System.out.println("Nueva session:"+sesion.getCreationTime()+"- User:"+strCodigoId);
@@ -231,4 +231,4 @@
 	moduloLista 	= null;
 %>
 
-<%if(entrar){%>correcto<%} %>
+<%if(entrar){%>correcto<%} %> -->

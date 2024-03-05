@@ -37,5 +37,15 @@ public class EmpPersonalManageImpl implements EmpPersonalManager{
         }
         return nombre;
     }
+
+    @Override
+    public EmpPersonal getEmpPersonal(String codigoId) {
+        return personalDao.findByCodigoId(codigoId);
+    }
+
+    @Override
+    public boolean existByCodigoId(String codigoId) {
+        return personalDao.existsByCodigoId(codigoId);
+    }
     
 }

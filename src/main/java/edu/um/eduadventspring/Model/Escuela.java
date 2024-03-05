@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "cat_escuela")
-public class Escuela {
+public class Escuela implements BaseModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cat_escuela_id_seq")

@@ -4,6 +4,6 @@ import java.sql.Date;
 
 public interface FinEjercicioManager {
 
-    String getEjercicioActual(String escuelaId, Date fechaIni, Date fechaFin);
+    String getEjercicioActual(String escuelaId);
 }
 

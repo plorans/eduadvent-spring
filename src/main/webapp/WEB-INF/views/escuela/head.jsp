@@ -4,10 +4,10 @@
 <%@ page buffer= "none" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-<link rel="stylesheet" type="application/json" href="/src/main/webapp/WEB-INF/views/escuela/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" type="application/json" href="/src/main/webapp/WEB-INF/views/escuela/bootstrap/css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" type="application/json" href="/src/main/webapp/WEB-INF/views/escuela/css/style.css" />
-<link rel="stylesheet" type="application/json" href="/src/main/webapp/WEB-INF/views/escuela/css/print.css" type="text/css" media="print" />
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
 <%
 HttpServletResponse httpResponse = (HttpServletResponse) response;
 httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -19,8 +19,8 @@ httpResponse.setDateHeader("Expires", 0); // Proxies.
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
      <meta http-equiv="Pragma" content="no-cache"/>
      <meta http-equiv="Expires" content="-1"/>
-<script type="application/json" src="/src/main/webapp/WEB-INF/views/escuela/js/jquery-1.9.1.min.js"></script>
-<script type="application/json" src="/src/main/webapp/WEB-INF/views/escuela/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,8 +31,7 @@ httpResponse.setDateHeader("Expires", 0); // Proxies.
   ga('send', 'pageview');
 
 </script>
-
-<link rel="shortcut icon" href="/src/main/webapp/WEB-INF/views/escuela/imagenes/icoEs.png">
+<link rel="shortcut icon" href="/imagenes/icoEs.png">
 <title>Sistema Escolar</title>
 
 
@@ -47,7 +46,7 @@ httpResponse.setDateHeader("Expires", 0); // Proxies.
 
 
 
-<script type="application/json" src="/src/main/webapp/WEB-INF/views/escuela/js/onlyNumbers.js"></script>
+<script type="text/javascript" src="/js/onlyNumbers.js"></script>
 <script>
 	(function($){
 		$('document').ready(function(){

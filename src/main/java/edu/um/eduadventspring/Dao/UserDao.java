@@ -14,5 +14,5 @@ public interface UserDao extends JpaRepository<User,Long>{
 
     User findByCodigoId(String codigoId);
 
-    User findByUsuarioAndPasswordAndEscuelaContaining(String usuario, String password, String escuelaContaining);
+    User findByUsuarioAndEscuelaContaining(String usuario, String escuelaId);
 }

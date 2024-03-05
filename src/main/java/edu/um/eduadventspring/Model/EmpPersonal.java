@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "emp_personal")
-public class EmpPersonal {
+public class EmpPersonal implements BaseModel{
     
     @Id
     private Long id;

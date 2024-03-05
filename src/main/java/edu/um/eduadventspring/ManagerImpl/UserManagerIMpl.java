@@ -14,8 +14,8 @@ public class UserManagerIMpl implements UserManager{
     private UserDao userDao;
 
     @Override
-    public String getCodigoId(String username, String password) {
-        User usuario = userDao.findByUsuarioAndPasswordAndEscuelaContaining(username, password, password);
+    public String getCodigoId(String username, String escuelaId) {
+        User usuario = userDao.findByUsuarioAndEscuelaContaining(username,escuelaId);
         if(usuario != null){
             return usuario.getCodigoId();
         }else{
@@ -55,6 +55,11 @@ public class UserManagerIMpl implements UserManager{
             sup = true;
         }
         return sup;
+    }
+
+    @Override
+    public User getUser(String codigoId) {
+        return userDao.findByCodigoId(codigoId);
     }
 
     

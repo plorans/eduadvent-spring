@@ -24,5 +24,10 @@ public class AlumPersonalMangerImpl implements AlumPersonalManager{
         }
         return nombre;
     }
+
+    @Override
+    public Boolean alumPersonalExist(String codigoId) {
+        return alumPersonalDao.existsByCodigoId(codigoId);
+    }
     
 }

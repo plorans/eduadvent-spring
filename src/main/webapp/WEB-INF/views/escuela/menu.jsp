@@ -1,8 +1,8 @@
 <%@ include file= "administradores.jsp" %>
 <%
-	java.util.ArrayList<aca.menu.Menu> MENU				= (java.util.ArrayList<aca.menu.Menu>) session.getAttribute("lisMenuPrincipal");
-	java.util.ArrayList<aca.menu.Modulo> MODULO			= (java.util.ArrayList<aca.menu.Modulo>) session.getAttribute("lisMenu");
-	java.util.ArrayList<aca.menu.ModuloOpcion> OPCION	= (java.util.ArrayList<aca.menu.ModuloOpcion>) session.getAttribute("lisOpcion");
+	java.util.ArrayList<edu.um.eduadventspring.Model.Menu> MENU				= (java.util.ArrayList<edu.um.eduadventspring.Model.Menu>) session.getAttribute("lisMenuPrincipal");
+	java.util.ArrayList<edu.um.eduadventspring.Model.Modulo> MODULO			= (java.util.ArrayList<edu.um.eduadventspring.Model.Modulo>) session.getAttribute("lisMenu");
+	java.util.ArrayList<edu.um.eduadventspring.Model.ModuloOpcion> OPCION	= (java.util.ArrayList<edu.um.eduadventspring.Model.ModuloOpcion>) session.getAttribute("lisOpcion");
 		
 	String menuUSER = (String)session.getAttribute("codigoId");
 %>
@@ -76,22 +76,22 @@
 				<!-- ********************* OPCIONES DEL MENU *********************** -->
                  
           <%
-          		for(aca.menu.Menu m: MENU){
-          			if(m.getMenu_id().equals("7"))continue;
+          		for(edu.um.eduadventspring.Model.Menu m: MENU){
+          			if(m.getId() == 7L)continue;
           %>         
                <li class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=m.getMenu_nombre() %> <b class="caret"></b></a>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=m.getNombre() %> <b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                  
 	                  <%
-	                  for(aca.menu.Modulo mo: MODULO){
-	                	  if(!mo.getMenuId().equals(m.getMenu_id()))continue;
+	                  for(edu.um.eduadventspring.Model.Modulo mo: MODULO){
+	                	  if(!mo.getId().equals(m.getId()))continue;
 	                  %>
 	                  
 	                  <li class="dropdown-submenu"><a><%=mo.getNombreModulo() %></a>
 	                  		 <ul class="dropdown-menu second-level">
 	                  		 		<%
-					                  for(aca.menu.ModuloOpcion o: OPCION){
+					                  for(edu.um.eduadventspring.Model.ModuloOpcion o: OPCION){
 					                	  if(!o.getModuloId().equals(mo.getModuloId()))continue;
 					                 %>
 	                  		 	
@@ -127,7 +127,7 @@
                          <%
                          int contadorMenu = 0;
                          for (int j=0; j<OPCION.size(); j++){
-								aca.menu.ModuloOpcion op = (aca.menu.ModuloOpcion) OPCION.get(j);
+								edu.um.eduadventspring.Model.ModuloOpcion op = (edu.um.eduadventspring.Model.ModuloOpcion) OPCION.get(j);
 								if (op.getModuloId().equals("A05") || op.getModuloId().equals("A20")){
 									String url = "";
 									if(op.getModuloId().equals("A05"))url="usuario";

@@ -10,8 +10,9 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table
-public class FinEjercicio {
+@Table(name = "fin_ejercicio")
+public class FinEjercicio implements BaseModel{
+    
     @Id
     private Long id;
 

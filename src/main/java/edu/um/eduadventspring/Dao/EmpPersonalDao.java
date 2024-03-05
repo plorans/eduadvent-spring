@@ -9,4 +9,6 @@ import edu.um.eduadventspring.Model.EmpPersonal;
 public interface EmpPersonalDao extends JpaRepository<EmpPersonal,Long>{
 
     EmpPersonal findByCodigoId(String codigoId);
+
+    boolean existsByCodigoId(String codigoId);
 }

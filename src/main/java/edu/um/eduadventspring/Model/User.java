@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "usuario")
-public class User{
+public class User implements BaseModel{
     @Id()
     private Long id;
 
