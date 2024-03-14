@@ -17,9 +17,7 @@ public class MenuManagerImpl implements MenuManager{
     private MenuDao menuDao;
 
     @Override
-    public List<Menu> getMenu(String codigoId) {
-        Menu menu = menuDao.findById(1L).orElseThrow();
-        
+    public List<Menu> getMenu(String codigoId) {        
         Long[] listaId = menuDao.getListUser(codigoId);
         List<Menu> menus = new ArrayList<Menu>();
 

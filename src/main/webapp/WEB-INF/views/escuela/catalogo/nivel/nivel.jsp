@@ -4,8 +4,7 @@
 <%@ include file= "../../head.jsp" %>
 <%@ include file= "../../menu.jsp" %>
 
-<jsp:useBean id="nivelU" scope="page" class="aca.catalogo.CatNivelEscuelaLista"/>
-<jsp:useBean id="Nivel" scope="page" class="aca.catalogo.CatNivelEscuela"/>
+<jsp:useBean id="Nivel" scope="page" class="edu.um.eduadventspring.Model.NivelEscuela"/>
 
 <head>
 <script>
@@ -16,21 +15,16 @@
 	}
 </script>
 <%
-	String escuela = (String)session.getAttribute("escuela");
-	String accion  = request.getParameter("Accion")==null?"":request.getParameter("Accion");
-	if(accion.equals("1")){
-		Nivel.setEscuelaId(escuela);
-		Nivel.setNivelId(request.getParameter("nivelId"));
-		Nivel.deleteReg(conElias);
-	}
+	edu.um.eduadventspring.Model.Escuela escuela = (edu.um.eduadventspring.Model.Escuela) request.getAttribute("escuelaN");
+	
 	
 
-	ArrayList<aca.catalogo.CatNivelEscuela> niveles = nivelU.getListEscuela(conElias, escuela, "ORDER BY 2");
+	ArrayList<edu.um.eduadventspring.Model.NivelEscuela> niveles = (ArrayList<edu.um.eduadventspring.Model.NivelEscuela>) request.getAttribute("niveles");
 %>
 </head>
 <body>
 <div id="content">
-	<h2><fmt:message key="catalogo.Niveles" /><small>( <%=aca.catalogo.CatEscuela.getNombre(conElias, escuela) %> )</small> </h2>
+	<h2><fmt:message key="catalogo.Niveles" /><small>( <%=escuela.getNombre() %> )</small> </h2>
 
 	<div class="well" style="overflow:hidden;">
  		<a class="btn btn-primary" href="accion.jsp?escuela=<%=escuela%>"><i class="icon-plus icon-white"></i>&nbsp;<fmt:message key="boton.Anadir" /></a>
@@ -51,24 +45,32 @@
 			</tr>
 			<%
 	int cont = 0;
-	for(aca.catalogo.CatNivelEscuela nivel: niveles){
+	for(edu.um.eduadventspring.Model.NivelEscuela nivel: niveles){
 		cont++;
 %>
 			<tr>
 				<td>&nbsp;&nbsp;
 					<a href="accion.jsp?Accion=2&nivelId=<%=nivel.getNivelId()%>"><i class="icon-pencil"></i></a>		 	
-					<%if(!aca.catalogo.CatGrupo.existeNivel(conElias, escuela, nivel.getNivelId())){%>
+					<%
+					
+					if(!nivel.getExisteNivel())
+					{%>
 					<a href="javascript:borrar('<%=nivel.getNivelId()%>');"><i class="icon-remove"></i></a>
-					<%} %> 
+					<%} 
+					String nombre = "-";
+					if(nivel.getDirector() != null){
+						nombre = nivel.getDirector().getNombre() + " " + nivel.getDirector().getApaterno() + " " +nivel.getDirector().getAmaterno();
+					}
+					%> 
 				</td>
-				<td><%=nivel.getNivelId() %></td>
+				<td><%=nivel.getNivel().getId() %></td>
 				<td><%=nivel.getNivelNombre() %></td>
 				<td><%=nivel.getTitulo() %></td>
 				<td><%=nivel.getGradoIni() %></td>
 				<td><%=nivel.getGradoFin() %></td>
 				<td><%=nivel.getNotaminima() %></td>
 				<td><%=nivel.getFuncionId() %></td>
-				<td><%=aca.empleado.EmpPersonal.getNombre(conElias, nivel.getDirector(), "NOMBRE")%></td>
+				<td><%=nombre%></td>
 				<td><%=nivel.getRegistro()%></td>
 			</tr>
 			<%

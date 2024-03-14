@@ -1,11 +1,12 @@
 package edu.um.eduadventspring.ManagerImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import edu.um.eduadventspring.Dao.EscuelaDao;
-import edu.um.eduadventspring.Manager.EscuelaManager;
-import edu.um.eduadventspring.Model.Escuela;
+import edu.um.eduadventspring.Dao.NivelDao;
+import edu.um.eduadventspring.Manager.NivelManager;
+import edu.um.eduadventspring.Model.Nivel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -13,38 +14,26 @@ import jakarta.transaction.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Service("EscuelaManager")
-public class EscuelaManagerImpl implements EscuelaManager {
+@Service("NivelManager")
+public class NivelManagerImpl implements NivelManager {
 
     @Autowired
-    private EscuelaDao escuelaDao;
+    private NivelDao nivelDao;
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
-
+    
     @Override
-    public Character getEstadoEscuela(String escuelaId) {
-        Escuela salida = escuelaDao.findByEscuelaId(escuelaId);
-        return salida.getEstado();
-    }
-
-    @Override
-    public String getNombre(String escuelaId) {
-        Escuela salida = escuelaDao.findByEscuelaId(escuelaId);
-        return salida.getNombre();
-    }
-
-    @Override
-    public Mono<Escuela> saveEscuela(Escuela escuela) {
+    @Transactional
+    public Mono<Nivel> saveNivel(Nivel nivel) {
         return Mono.fromCallable(() -> {
             try (EntityManager em = entityManagerFactory.createEntityManager()) {
                 EntityTransaction transaction = em.getTransaction();
                 try {
                     transaction.begin();
-                    escuela.setEstado('A');
-                    em.persist(escuela);
+                    em.persist(nivel);
                     transaction.commit();
-                    return escuela;
+                    return nivel;
                 } catch (Exception e) {
                     transaction.rollback();
                     throw e;
@@ -53,18 +42,28 @@ public class EscuelaManagerImpl implements EscuelaManager {
         });
     }
 
-    @Transactional
     @Override
-    public Mono<Escuela> removeEscuela(Long id) {
+    public Mono<Nivel> getNivel(Long id) {
+        return Mono.fromSupplier(() -> nivelDao.findById(id).orElse(null));
+    }
+
+    @Override
+    public Flux<Nivel> getNiveles() {
+        return Flux.fromIterable(nivelDao.findAll());
+    }
+
+    @Override
+    @Transactional
+    public Mono<Nivel> deleteNivel(Long id) {
         return Mono.fromCallable(() -> {
-            Escuela escuela = null;
+            Nivel nivel;
             EntityManager em = entityManagerFactory.createEntityManager();
             EntityTransaction transaction = em.getTransaction();
             try {
                 transaction.begin();
-                int updatedRows = escuelaDao.updateEstado('I', id);
-                if (updatedRows > 0) {
-                    escuela = em.find(Escuela.class, id);
+                nivel = em.find(Nivel.class, id);
+                if (nivel != null) {
+                    em.remove(nivel);
                 }
                 transaction.commit();
             } catch (Exception e) {
@@ -75,18 +74,8 @@ public class EscuelaManagerImpl implements EscuelaManager {
             } finally {
                 em.close();
             }
-            return escuela;
+            return nivel;
         });
-    }
-
-    @Override
-    public Mono<Escuela> getEscuela(String esculaId) {
-        return Mono.fromSupplier(() -> escuelaDao.findByEscuelaId(esculaId));
-    }
-
-    @Override
-    public Flux<Escuela> getEscuelas() {
-        return Flux.fromIterable(escuelaDao.findAll());
     }
 
 }

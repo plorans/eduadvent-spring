@@ -20,8 +20,6 @@ import edu.um.eduadventspring.Manager.MenuManager;
 import edu.um.eduadventspring.Manager.ModuloManager;
 import edu.um.eduadventspring.Manager.ModuloOpcionManager;
 import edu.um.eduadventspring.Manager.UserManager;
-import edu.um.eduadventspring.Model.Ciclo;
-import edu.um.eduadventspring.Model.EmpPersonal;
 import edu.um.eduadventspring.Model.Menu;
 import edu.um.eduadventspring.Model.Modulo;
 import edu.um.eduadventspring.Model.ModuloOpcion;
@@ -34,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class ControllerInicio {
+public class InicioController {
 
 	@Autowired
 	private UserManager userManager;
@@ -230,34 +228,5 @@ public class ControllerInicio {
 		}
 
 	}
-
-	// protected void doGet(HttpServletRequest request, HttpServletResponse
-	// response)
-	// throws ServletException, IOException {
-
-	// HttpSession session = request.getSession();
-	// String sCodigoPersonal = session.getAttribute("codigoId").toString();
-	// String cicloIdM = session.getAttribute("cicloId").toString();
-
-	// List<Ciclo> lisCiclo = cicloManager.getListCiclosAlumno(sCodigoPersonal,
-	// "CICLO_ID");
-
-	// boolean encontro = false;
-	// for (Ciclo c : lisCiclo) {
-	// if (cicloIdM != null && c.getCicloId().equals(cicloIdM)) {
-	// encontro = true;
-	// break;
-	// }
-	// }
-
-	// // Elige el mejor ciclo para el alumno.
-	// if (encontro == false && lisCiclo.size() > 0) {
-	// Ciclo ciclo = lisCiclo.get(lisCiclo.size() - 1);
-	// cicloIdM = ciclo.getCicloId();
-
-	// }
-
-	// session.setAttribute("cicloId", cicloIdM);
-	// }
 
 }

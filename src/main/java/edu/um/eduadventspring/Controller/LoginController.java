@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-public class ControllerLogin {
+public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

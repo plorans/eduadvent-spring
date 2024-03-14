@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-@Table(name = "usuario_menu")
 public class CicloGrupoCursoId implements BaseModel{
 
     @Column(name = "ciclo_grupo_id", length = 11)

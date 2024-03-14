@@ -85,17 +85,21 @@
 	                  
 	                  <%
 	                  for(edu.um.eduadventspring.Model.Modulo mo: MODULO){
-	                	  if(!mo.getId().equals(m.getId()))continue;
+						if (mo.getMenuId() != m.getId()) {
+							continue;
+						}
+						
 	                  %>
 	                  
 	                  <li class="dropdown-submenu"><a><%=mo.getNombreModulo() %></a>
 	                  		 <ul class="dropdown-menu second-level">
 	                  		 		<%
+									//Collections.sort(OPCION, Comparator.comparing(edu.um.eduadventspring.Model.ModuloOpcion::edu.um.eduadventspring.Model.ModuloOpcion.getNombreOpcion));
 					                  for(edu.um.eduadventspring.Model.ModuloOpcion o: OPCION){
 					                	  if(!o.getModuloId().equals(mo.getModuloId()))continue;
 					                 %>
 	                  		 	
-	                                	<li><a tabindex="-1" href="../../<%=mo.getUrl()%><%=o.getUrl()%>"><%=o.getNombreOpcion() %></a></li>
+	                                	<li><a tabindex="-1" href="<%=o.getUrl()%>"><%=o.getNombreOpcion() %></a></li>
 	                               	<%
 	                               	  } 
 	                               	%>
@@ -144,7 +148,7 @@
 									}
 									contadorMenu++;
 							%>
-								<li><a href="../../<%=url%><%=op.getUrl()%>" ><i class="<%=icon%>"></i> <%=op.getNombreOpcion() %></a></li>
+								<li><a href="/<%=url%><%=op.getUrl()%>" ><i class="<%=icon%>"></i> <%=op.getNombreOpcion() %></a></li>
 							<%
 								}
 							}

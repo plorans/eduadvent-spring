@@ -7,12 +7,6 @@
 <%@ page import="java.util.*" %>
 
 <jsp:useBean id="usuario" scope="page" class="aca.usuario.Usuario"/>
-<jsp:useBean id="escuelaLista" scope="page" class="aca.catalogo.CatEscuelaLista"/>
-<jsp:useBean id="paisLista" scope="page" class="aca.catalogo.CatPaisLista"/>
-<jsp:useBean id="estadoLista" scope="page" class="aca.catalogo.CatEstadoLista"/>
-<jsp:useBean id="ciudadLista" scope="page" class="aca.catalogo.CatCiudadLista"/>
-<jsp:useBean id="asociacionLista" scope="page" class="aca.catalogo.CatAsociacionLista"/>
-<jsp:useBean id="ejercicioL" scope="page" class="aca.fin.FinEjercicioLista" />
 
 <head>
 <%		
@@ -23,20 +17,8 @@
 	String salto 				= "";  
 	
 	/* Lista completa de escuela */
-	ArrayList<aca.catalogo.CatEscuela> lisEscuela		= escuelaLista.getListAll(conElias," ORDER BY ESCUELA_NOMBRE");
-	
-	/* Map de Paises */
-	HashMap<String, aca.catalogo.CatPais> mapPaises 	= paisLista.getMapAll(conElias, "");
-	
-	/* Map de Estados */
-	HashMap<String, aca.catalogo.CatEstado> mapEstados 	= estadoLista.getMapAll(conElias, "");
-	
-	/* Map de Ciudades */
-	HashMap<String, aca.catalogo.CatCiudad> mapCiudades = ciudadLista.getMapAll(conElias, "");
-	
-	/* Map de Ciudades */
-	HashMap<String, aca.catalogo.CatAsociacion> mapAsociacion = asociacionLista.getMapAll(conElias, "");
-	
+	List<edu.um.eduadventspring.Model.Escuela> lisEscuela = (List<edu.um.eduadventspring.Model.Escuela>) request.getAttribute("escuelas");	
+
 	switch (numAccion){
 		case 1:{			
 			if (lisEscuela.size() > 0)
@@ -76,13 +58,7 @@
 <div id="content">
 
 	<h2><fmt:message key="escuelas.Escuelas" /> </h2>
-<%
-	if(!resultado.equals("")){
-%>
-	<div class="alert alert-info"><fmt:message key="aca.${resultado}" /></div> 
-<%
-	}
-%>	
+
 	<div class="well">
 		<input type="text" class="input-medium search-query" placeholder="<fmt:message key="boton.Buscar" />" id="buscar">
 	</div>
@@ -100,42 +76,17 @@
 			</thead>
 			<%
 			for (int i=0; i< lisEscuela.size(); i++){
-				aca.catalogo.CatEscuela escuela = (aca.catalogo.CatEscuela) lisEscuela.get(i);			
+				edu.um.eduadventspring.Model.Escuela escuela = (edu.um.eduadventspring.Model.Escuela) lisEscuela.get(i);							
 				
-				if(!escuelas.contains( escuela.getEscuelaId() ))continue;
-				
-				String nombreAsociacion = "";
-				if (mapAsociacion.containsKey(escuela.getAsociacionId())){
-					aca.catalogo.CatAsociacion  asociacion = mapAsociacion.get(escuela.getAsociacionId());
-					nombreAsociacion = asociacion.getAsociacionNombre();
-				}
-				
-				String nombrePais = "";
-				if (mapPaises.containsKey(escuela.getPaisId())){
-					aca.catalogo.CatPais  pais = mapPaises.get(escuela.getPaisId());
-					nombrePais = pais.getPaisNombre();
-				}
-				
-				String nombreEstado = "";
-				if (mapEstados.containsKey(escuela.getPaisId()+escuela.getEstadoId())){
-					aca.catalogo.CatEstado estado = mapEstados.get(escuela.getPaisId()+escuela.getEstadoId());
-					nombreEstado = estado.getEstadoNombre();
-				}
-				
-				String nombreCiudad = "";
-				if (mapCiudades.containsKey(escuela.getPaisId()+escuela.getEstadoId()+escuela.getCiudadId())){
-					aca.catalogo.CatCiudad ciudad = mapCiudades.get(escuela.getPaisId()+escuela.getEstadoId()+escuela.getCiudadId());
-					nombreCiudad = ciudad.getCiudadNombre();
-				}
 			%>
 				<tr>
 					<td align="center"><%=escuela.getEscuelaId()%></td>
 				    <td>
-				      <a href="javascript:SubirEscuela('<%=escuela.getEscuelaId()%>')"><%=escuela.getEscuelaNombre()%></a>
+				      <a href="javascript:SubirEscuela('<%=escuela.getEscuelaId()%>')"><%=escuela.getNombre()%></a>
 				    </td>
-				    <td><%=nombreAsociacion%></td>
+				    <td><%=escuela.getAsociacionId().getNombre()%></td>
 				    <td>
-				    	<%= nombreCiudad %>, <%= nombreEstado %>, <%= nombrePais %>
+				    	<%= escuela.getCiudadId().getNombre() %>, <%= escuela.getEstadoId().getNombre() %>, <%= escuela.getPaisId().getNombre() %>
 				    </td>
 				    <td><%=escuela.getDireccion()%></td>
 				    <td><%=escuela.getTelefono()%></td>

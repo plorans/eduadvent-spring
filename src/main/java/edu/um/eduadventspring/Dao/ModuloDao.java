@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import edu.um.eduadventspring.Model.Modulo;
-import java.util.List;
 
 @Repository
 public interface ModuloDao extends JpaRepository<Modulo, Long> {
