@@ -41,7 +41,7 @@ public class Edad{
 	    
 	}
 	
-	public static int getEdad(String fecha){// FORMATO -> 01/12/2011 ("dia/mes/a�o")
+	public static int getEdad(String fecha){// FORMATO -> 01/12/2011 ("dia/mes/año")
 		
 		
 		

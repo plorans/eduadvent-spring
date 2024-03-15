@@ -30,7 +30,7 @@ public class Fecha{
 			case Calendar.WEDNESDAY:	dia = "Miercoles";	break;
 			case Calendar.THURSDAY:		dia = "Jueves";		break;
 			case Calendar.FRIDAY:		dia = "Viernes";	break;
-			case Calendar.SATURDAY:		dia = "S�bado";		break;
+			case Calendar.SATURDAY:		dia = "Sábado";		break;
 			}
 			
 			switch(fecha.get(Calendar.MONTH)) {

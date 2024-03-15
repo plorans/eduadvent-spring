@@ -1,4 +1,4 @@
-// Bean del Cat�logo Planes
+// Bean del Catálogo Planes
 package  aca.alumno;
 
 import java.sql.Connection;

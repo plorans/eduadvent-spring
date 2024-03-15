@@ -1,4 +1,4 @@
-// Bean del Cat�logo de Materias de los grupos
+// Bean del Catálogo de Materias de los grupos
 package  aca.ciclo;
 
 import java.sql.*;

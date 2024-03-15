@@ -1,4 +1,4 @@
-// Bean del Cat�logo de Bloques
+// Bean del Catálogo de Bloques
 package  aca.ciclo;
 import java.sql.*;
 

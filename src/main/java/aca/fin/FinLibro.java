@@ -173,7 +173,7 @@ public class FinLibro {
         return ok;
     }
     
-    //Maximo id del cat�logo
+    //Maximo id del catálogo
     public String maxReg(Connection conn) throws SQLException {
                
         PreparedStatement ps	= null;

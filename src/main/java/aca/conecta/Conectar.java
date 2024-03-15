@@ -91,7 +91,7 @@ public class Conectar{
 		}catch(Exception ex){
 			//System.out.println("Error - aca.conectar.Conectar|conPostgres|:"+ex);
 			try{
-				//System.out.println("ESC Postgres dir(fall� pool)...");
+				//System.out.println("ESC Postgres dir(falló pool)...");
 				Class.forName("org.postgresql.Driver");
 				conn = DriverManager.getConnection(getConeccion(),getUsuario(),getPassword());
 			}catch(Exception e){
