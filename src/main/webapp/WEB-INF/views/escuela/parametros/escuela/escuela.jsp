@@ -11,46 +11,16 @@
 <head>
 <%		
 	String escuelaId			= "00"; 
-	String sAccion				= request.getParameter("Accion")==null?"1":request.getParameter("Accion");
-	int numAccion 				= Integer.parseInt(sAccion);
 	String resultado			= "";
-	String salto 				= "";  
+	
 	
 	/* Lista completa de escuela */
 	List<edu.um.eduadventspring.Model.Escuela> lisEscuela = (List<edu.um.eduadventspring.Model.Escuela>) request.getAttribute("escuelas");	
 
-	switch (numAccion){
-		case 1:{			
-			if (lisEscuela.size() > 0)
-				resultado = "ClickNombreEscuela";
-			else
-				resultado = "NoEncontro";
-			break;
-		} 
-		case 2:{
-			if (request.getParameter("EscuelaId").length()==1)
-				escuelaId = "0"+request.getParameter("EscuelaId");
-			else
-				escuelaId = request.getParameter("EscuelaId");				
-			session.setAttribute("escuela",escuelaId);
-			session.setAttribute("cicloId",aca.ciclo.Ciclo.getMejorCargaEscuela(conElias, escuelaId));
-			resultado = "RegistradoentuSesion";
-			
-			// Subir a sesion el ejercicio actual de la escuela			
-			String ejercicioId = aca.fin.FinEjercicio.getEjercicioActual(conElias, escuelaId);	
-			session.setAttribute("ejercicioId", ejercicioId);
-			
-			salto = "../../general/inicio/index.jsp";		
-			
-			break;			
-		}
-	}
 	
-	String usuarioLogeado = (String)session.getAttribute("codigoId");
+    pageContext.setAttribute("resultado", request.getParameter("resultado"));	
+
 	
-	usuario.mapeaRegId(conElias, usuarioLogeado);
-	String escuelas = usuario.getEscuela();
-	pageContext.setAttribute("resultado",resultado);
 %>
 </head>
 <body>
@@ -82,7 +52,8 @@
 				<tr>
 					<td align="center"><%=escuela.getEscuelaId()%></td>
 				    <td>
-				      <a href="javascript:SubirEscuela('<%=escuela.getEscuelaId()%>')"><%=escuela.getNombre()%></a>
+						<a href="javascript:void(0);" onclick="SubirEscuela('<%=escuela.getEscuelaId()%>')"><%=escuela.getNombre()%></a>
+
 				    </td>
 				    <td><%=escuela.getAsociacionId().getNombre()%></td>
 				    <td>
@@ -97,21 +68,25 @@
 			%>
 		  </table>
 </div>	
-	<script>
-		function SubirEscuela( EscuelaId ){
-	  		document.location="escuela.jsp?Accion=2&EscuelaId="+EscuelaId;
-		}
-	</script>
+
+<script>
+    function SubirEscuela(EscuelaId) {
+        $.post('/parametros/escuela/subir', {
+            Accion: '2',
+            EscuelaId: EscuelaId
+        }, function(data) {
+			window.location.href = '/inicio';
+        });
+    }
+</script>
+
+
 	
 	<script src="../../js/search.js"></script>
 	<script>
 		$('#buscar').focus().search({table:$("#table")});
 	</script>
 </body>
-<%	
-	// Salto de pagina
-	if (salto.length()>0){%>
-	<meta http-equiv="refresh" content="0; url=<%=salto%>">
-<%	} %>
+
 
 <%@ include file= "../../cierra_elias.jsp" %> 

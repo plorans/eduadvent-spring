@@ -20,21 +20,21 @@ public class ModuloOpcionManagerImpl implements ModuloOpcionManager {
 
     @Override
     public List<ModuloOpcion> getListUserSuper(String codigoId) {
-        log.info("codigoid: " + codigoId);
+        // log.info("codigoid: " + codigoId);
 
         Integer[] mOpcionId = moduloOpcionDao.getListUserSuper(codigoId);
-        log.info("ModulosOpcion: " + mOpcionId[0]);
+        // log.info("ModulosOpcion: " + mOpcionId[0]);
 
         List<ModuloOpcion> modulos = new ArrayList<>();
 
-        log.info("Length : " + mOpcionId.length);
+        // log.info("Length : " + mOpcionId.length);
 
         for (int i = 0; i < mOpcionId.length; i++) {
             ModuloOpcion salida = moduloOpcionDao.findById(mOpcionId[i].longValue()).orElseThrow();
 
             modulos.add(salida);
         }
-        log.info("modulos : " + modulos.get(0));
+        // log.info("modulos : " + modulos.get(0));
         return modulos;
     }
 

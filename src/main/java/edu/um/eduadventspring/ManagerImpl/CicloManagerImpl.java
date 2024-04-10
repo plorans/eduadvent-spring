@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service("CicloManager")
 @Slf4j
-public class CicloManagerImpl implements CicloManager{
-    
+public class CicloManagerImpl implements CicloManager {
+
     @Autowired
     private CicloDao cicloDao;
 
@@ -23,8 +23,8 @@ public class CicloManagerImpl implements CicloManager{
         Long[] listaId = cicloDao.getListCiclosAlumno(codigoId, orden);
         List<Ciclo> ciclos = new ArrayList<Ciclo>();
 
-        for(int i = 0; i < listaId.length; i++){
-            Ciclo salida = cicloDao.findById(listaId[i]).orElseThrow();            
+        for (int i = 0; i < listaId.length; i++) {
+            Ciclo salida = cicloDao.findById(listaId[i]).orElseThrow();
             ciclos.add(salida);
         }
         return ciclos;
@@ -34,10 +34,10 @@ public class CicloManagerImpl implements CicloManager{
     public String getMejorCarga(String codigoId) {
         String ciclo = cicloDao.getMejorCarga(codigoId);
         String mejorCiclo = "XXXXXXX";
-        if(!ciclo.equals("0")){
+        if (!ciclo.equals("0")) {
             mejorCiclo = ciclo;
-        }else{
-            mejorCiclo = cicloDao.getMejorCargaNow();
+        } else {
+            mejorCiclo = cicloDao.getMejorCargaNow(codigoId.substring(0,3));
         }
         return mejorCiclo;
     }
@@ -47,12 +47,27 @@ public class CicloManagerImpl implements CicloManager{
         String cargaActual;
         String carga = cicloDao.getCargaNow(escuelaId);
 
-        if(!carga.isEmpty()){
+        if (!carga.isEmpty()) {
             cargaActual = carga;
-        }else{
+        } else {
             cargaActual = cicloDao.getCargaActual(escuelaId);
         }
         return cargaActual;
     }
-    
+
+    @Override
+    public String getMejorCargaEscuela(String escuelaId) {
+        String carga = cicloDao.getCargaEscuelaNow(escuelaId);
+        String cargaActual = "XXXXXXX";
+
+        if (!carga.equals("0")) {
+            cargaActual = carga;
+        } else {
+            cargaActual = cicloDao.getCargaEscuela(escuelaId);
+        }
+
+        return cargaActual;
+
+    }
+
 }

@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
           </button>
           
-          <a class="brand" href="../../general/inicio/index.jsp">eduADVENT</a>
+          <a class="brand" href="/inicio">eduADVENT</a>
      
           <div class="nav-collapse collapse">
             <ul class="nav">

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import edu.um.eduadventspring.Dao.FinEjercicioDao;
 import edu.um.eduadventspring.Manager.FinEjercicioManager;
 import edu.um.eduadventspring.Model.FinEjercicio;
+import lombok.extern.slf4j.Slf4j;
 
 @Service("FinEjercicioManager")
+@Slf4j
 public class FinEjercicioImpl implements FinEjercicioManager{
 
     @Autowired
@@ -16,8 +18,8 @@ public class FinEjercicioImpl implements FinEjercicioManager{
 
     @Override
     public String getEjercicioActual(String escuelaId) {
-        Long id = finEjercicioDao.getEjercicioActualDao(escuelaId);
 
+        Long id = finEjercicioDao.getEjercicioActualDao(escuelaId);
         FinEjercicio actual = finEjercicioDao.findById(id).orElseThrow();
         return actual.getEjercicioId();
     }

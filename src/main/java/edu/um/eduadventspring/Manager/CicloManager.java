@@ -11,4 +11,6 @@ public interface CicloManager {
     String getMejorCarga(String codigoId);
 
     String getCargaActual(String escuelaId);
+
+    String getMejorCargaEscuela(String escuelaId);
 }

@@ -1,27 +1,23 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="../../con_elias.jsp"%>
 <%@ include file="id.jsp"%>
 <%@ include file="../../seguro.jsp"%>
 <%@ include file="../../head.jsp"%>
 <%@ include file="../../menu.jsp"%>
 
-<jsp:useBean id="clasificacion" scope="page"
-	class="aca.catalogo.CatClasFin" />
 <head>
 <script>
 	function Nuevo() {
-		document.frmClas.ClasfinId.value = " ";
-		document.frmClas.ClasfinNombre.value = " ";
-		document.frmClas.Accion.value = "1";
-		document.frmClas.submit();
+		window.location.href = "/clasfin/accion?accion=1";
 	}
 
 	function Grabar() {
-		if (document.frmClas.ClasfinId.value != ""
-				&& document.frmClas.ClasfinNombre.value != "") {
-			document.frmClas.Accion.value = "2";
+		if (document.frmClas.clasfinId.value != ""
+				&& document.frmClas.nombre.value != "") {
+			document.frmClas.accion.value = "2";
 			document.frmClas.submit();
 		} else {
-			alert("¡Complete el formulario! ");
+			alert("Complete el formulario! ");
 		}
 	}
 
@@ -30,17 +26,17 @@
 		document.frmClas.submit();
 	}
 
-	function Borrar() {
-		if (document.frmClas.ClasfinId.value != "") {
-			if (confirm("¿Estas seguro de eliminar el registro?") == true) {
-				document.frmClas.Accion.value = "4";
-				document.frmClas.submit();
-			}
-		} else {
-			alert("¡Escriba la Clave!");
-			document.frmClas.ClasificacionId.focus();
+
+	function Borrar(ClasfinId) {
+		console.log(ClasfinId);
+		if (confirm("<fmt:message key='js.Confirma' />")) {
+			$.post("accion", { accion: '4', clasfinId: ClasfinId })
+				.done(function() {
+					window.location.href = "/clasfin/clasificacion"
+				});
 		}
 	}
+	
 
 	function Consultar() {
 		document.frmClas.Accion.value = "5";
@@ -51,107 +47,45 @@
 <%
 	// Declaracion de variables		
 	String escuelaId 		= (String) session.getAttribute("escuela");
-	int nAccion 			= Integer.parseInt(request.getParameter("Accion"));
-	if (nAccion == 1) {
-		clasificacion.setClasfinId(clasificacion.maximoReg(conElias, escuelaId));
-	} else {
-		clasificacion.setEscuelaId(escuelaId);
-		clasificacion.setClasfinId(request.getParameter("ClasfinId"));
-	}
-	
-	String salto			= "X";
-	String sResultado 		= "";
-	int i 					= 0;
+	String stAccion = (String) request.getAttribute("Accion");
+	String sResultado = (String) request.getAttribute("resultado");
+	String salto = (String) request.getAttribute("salto");
 
-	// Operaciones a realizar en la pantalla	
-	switch (nAccion) {
 
-		case 2: { // Grabar
-			conElias.setAutoCommit(false);			
-			clasificacion.setEscuelaId(escuelaId);
-			clasificacion.setClasfinId(request.getParameter("ClasfinId"));
-			clasificacion.setClasfinNombre(request.getParameter("ClasfinNombre"));	
-			clasificacion.setEstado(request.getParameter("Estado"));
+	edu.um.eduadventspring.Model.Clasificacion clasificacion = (edu.um.eduadventspring.Model.Clasificacion) request.getAttribute("clasificacion");
 
-			if (clasificacion.existeReg(conElias) == false) {
-				if (clasificacion.insertReg(conElias)) {
-					sResultado = "Guardado";
-					salto = "clasificacion.jsp";
-					conElias.commit();
-				} else {
-					sResultado = "NoGuardo";
-				}
-			} else {
-				if (clasificacion.updateReg(conElias)) {
-					sResultado = "Modificado";
-					conElias.commit();
-				} else {
-					sResultado = "NoModifico";
-				}
-			}
-			conElias.setAutoCommit(true);
-			break;
-		}
-		case 4: { // Borrar
-			conElias.setAutoCommit(false);
-			if (clasificacion.existeReg(conElias) == true) {
-				if (clasificacion.deleteReg(conElias)) {
-					sResultado = "Eliminado";
-					salto = "clasificacion.jsp";
-					conElias.commit();
-				} else {
-					sResultado = "NoElimino";
-				}
-
-			} else {
-				sResultado = "NoExiste";
-			}
-			conElias.setAutoCommit(true);
-			break;
-		}
-		case 5: { // Consultar						
-			if (clasificacion.existeReg(conElias) == true) {
-				clasificacion.mapeaRegId(conElias,escuelaId, request.getParameter("ClasfinId"));
-				sResultado = "Consulta";
-			} else {
-				sResultado = "NoExiste";
-			}
-			break;
-		}
-	}
-		
 	pageContext.setAttribute("resultado", sResultado);
 %>
 <body>
 	<div id="content">
 		<h2><fmt:message key="catalogo.AnadirClas" /></h2>
 		<% if (!sResultado.equals("") && (sResultado.equals("Guardado") || sResultado.equals("Modificado") || sResultado.equals("Eliminado"))){%>
-	   		<div class='alert alert-success'><fmt:message key="aca.${resultado}" /></div>
+	   		<div class='alert alert-success'><fmt:message key="aca.Consulta" /></div>
 	  	<% }else if(!sResultado.equals("")){ %>
-	  		<div class='alert alert-error'><fmt:message key="aca.${resultado}" /></div>
+	  		<div class='alert alert-error'><fmt:message key="aca.Consulta" /></div>
 	  	<% }%>
 
 		<div class="well" style="overflow: hidden;">
-			<a class="btn btn-primary" href="clasificacion.jsp"><i class="icon-list icon-white"></i> <fmt:message key="boton.Listado" /></a>
+			<a class="btn btn-primary" href="clasificacion"><i class="icon-list icon-white"></i> <fmt:message key="boton.Listado" /></a>
 		</div>
-		<form action="accion.jsp" method="post" name="frmClas" target="_self">
-			<input type="hidden" name="Accion"> <input name="Pec"
-				type="hidden">
+		<form:form action="/clasfin/accion" method="POST" modelAttribute="clasificacion" name="frmClas" target="_self">
+			<form:input path="accion" type="hidden" name="accion" id="accion"/> 
+			
 		<div class="row">
 			<div class="span4">
 
 			<fieldset>
-					<label for="ClasfinId"> <fmt:message key="aca.Id" />: </label> 
-					<input name="ClasfinId" type="text" id="ClasfinId" size="3" maxlength="3" value="<%=clasificacion.getClasfinId()%>">
+					<form:label path="clasfinId" for="clasfinId"> <fmt:message key="aca.Id" />: </form:label> 
+					<form:input path="clasfinId" name="clasfinId" type="text" id="clasfinId" size="3" maxlength="3" value="<%=clasificacion.getClasfinId()%>"/>
 			</fieldset>
 			<fieldset>
-					<label for="ClasfinNombre"> <fmt:message key="aca.Clasificacion" />: </label>
-					<input name="ClasfinNombre" type="text" id="ClasfinNombre" value="<%=clasificacion.getClasfinNombre()%>" size="40" maxlength="40">
+					<form:label path="nombre" for="nombre"> <fmt:message key="aca.Clasificacion" />: </form:label>
+					<form:input path="nombre" name="nombre" type="text" id="nombre" value="<%=clasificacion.getNombre()%>" size="40" maxlength="40"/>
 			</fieldset>
 			<fieldset>
-					<label for="Estado"> <fmt:message key="aca.Estado" />: </label>
+					<form:label path="Estado" for="Estado"> <fmt:message key="aca.Estado" />: </form:label>
 					<select name="Estado" id="Estado" tabindex="4">
-		            <%	if(clasificacion.getEstado().equals("A")){%>
+		            <%	if(clasificacion.getEstado() != null && clasificacion.getEstado().equals("A")){%>
 			        	<option value='A' selected><fmt:message key="aca.Activo"/></option>
 			            <option value='I' ><fmt:message key="aca.Inactivo"/></option>
 			        <%	}else{%>
@@ -161,14 +95,16 @@
 			        </select>							
 			</fieldset>
 
-			<div class="well" style="overflow: hidden;">
-				<a class="btn btn-primary" href="javascript:Nuevo();"><i class="icon-file icon-white"></i> <fmt:message key="boton.Nuevo" /></a>
-				&nbsp; &nbsp;<a class="btn btn-primary" href="javascript:Grabar();"><i class="icon-ok icon-white"></i> <fmt:message key="boton.Guardar" /></a>
-				&nbsp; &nbsp; <a class="btn btn-primary" href="javascript:Borrar()"><i class="icon-remove icon-white"></i> <fmt:message key="boton.Eliminar" /></a>
+			
 			</div>
 			</div>
-			</div>
-		</form>
+		</form:form>
+
+		<div class="well" style="overflow: hidden;">
+			<button class="btn btn-primary" onclick="Nuevo()"><i class="icon-file icon-white"></i> <fmt:message key="boton.Nuevo" /></button>
+			&nbsp; &nbsp;<button class="btn btn-primary" onclick="Grabar()"><i class="icon-ok icon-white"></i> <fmt:message key="boton.Guardar" /></button>
+			&nbsp; &nbsp; <button class="btn btn-primary" onclick="Borrar(document.getElementById('clasfinId').value)"><i class="icon-remove icon-white"></i> <fmt:message key="boton.Eliminar" /></button>
+		</div>
 	</div>
 </body>
 
