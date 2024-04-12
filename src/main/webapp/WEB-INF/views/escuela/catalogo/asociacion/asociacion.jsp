@@ -7,29 +7,55 @@
 
 <jsp:useBean id="asocL" scope="page" class="aca.catalogo.CatAsociacionLista"/>
 <jsp:useBean id="CatUnionU" scope="page" class="aca.catalogo.CatUnionLista"/>
-<jsp:useBean id="Union" scope="page" class="aca.catalogo.CatUnion"/>
+<jsp:useBean id="Union" scope="page" class="edu.um.eduadventspring.Model.Union"/>
 
 <head>
 	<script>
 		function Borrar( AsocId ){
 			if (confirm("<fmt:message key="js.Confirma" />") == true) {
-		  		document.location="accion.jsp?Accion=3&AsocId="+AsocId;
+		  		document.location="accion?Accion=3&AsocId="+AsocId;
 		  	}
 		}
 	</script>
+
+	<script>
+		var unionId = '<%= request.getParameter("unionId") %>';
+		
+		function seleccionarOpcion() {
+			var select = document.getElementById("unionId");
+			
+			for (var i = 0; i < select.options.length; i++) {
+				if (select.options[i].value === unionId) {
+					select.options[i].selected = true;
+					break;
+				}
+			}
+		}
+		
+		window.onload = seleccionarOpcion;
+	</script>
+
 </head>
 <%
 	
 	String sColonia					="";
 	String sEmail					="";
-	ArrayList<aca.catalogo.CatUnion> uniones = CatUnionU.getListAll(conElias, "ORDER BY UNION_ID");
-	String unionId = request.getParameter("unionId");
-	if(unionId==null){
-		if(uniones.size()>0){
-			unionId = uniones.get(0).getUnionId();	
-		}
+	ArrayList<edu.um.eduadventspring.Model.Union> uniones =  (ArrayList<edu.um.eduadventspring.Model.Union>) request.getAttribute("uniones");
+	ArrayList<edu.um.eduadventspring.Model.Asociacion> asociaciones	= (ArrayList<edu.um.eduadventspring.Model.Asociacion>) request.getAttribute("asociaciones");
+	String unionIdUrl	= (String) request.getParameter("unionId");
+	String unionId	= (String) request.getAttribute("unionId");
+
+
+	if(unionIdUrl != null && unionId != null && !unionId.equals(unionIdUrl)){
+		unionId = unionIdUrl;
 	}
-	ArrayList<aca.catalogo.CatAsociacion> list					= asocL.getListAll(conElias,"WHERE UNION_ID = "+unionId+" ORDER BY ASOCIACION_ID");
+
+	System.out.println("unionId: " + unionId);
+	System.out.println("unionIdUrl: " + unionIdUrl);
+
+	
+
+
 %>
 <body>
 
@@ -39,10 +65,10 @@
     	<h2><fmt:message key="catalogo.ListadoDeAsoc" /></h2> 
    
 	    <div class="well">
-	    	<a class="btn btn-primary " href="accion.jsp?Accion=1&anadir=1&unionId=<%=unionId%>"><i class="icon-plus icon-white"></i>&nbsp;<fmt:message key="boton.Anadir" /></a>
+	    	<a class="btn btn-primary " href="accion?Accion=1&anadir=1&unionId=<%=unionId%>"><i class="icon-plus icon-white"></i>&nbsp;<fmt:message key="boton.Anadir" /></a>
 	    	<select name="unionId" id="unionId" onchange="document.forma.submit()" style="float:right;">
-	    	<%for(aca.catalogo.CatUnion union : uniones){%>
-	    		<option value="<%=union.getUnionId() %>"  <%if(union.getUnionId().equals(unionId))out.print("selected"); %>><%=union.getUnionNombre() %></option>	
+	    	<%for(edu.um.eduadventspring.Model.Union union : uniones){%>
+	    		<option value="<%=union.getId() %>"  <%if(union.getId().equals(unionId))out.print("selected"); %>><%=union.getNombre() %></option>	
 	    	<%}%>
 	    	</select>
 	    </div>
@@ -57,18 +83,18 @@
 			    <th width="30%"><fmt:message key="aca.Fondo" /></th>
 			</tr>
   			<%
-				for (int i=0; i< list.size(); i++){
-					aca.catalogo.CatAsociacion asoc = (aca.catalogo.CatAsociacion) list.get(i);
-					String nombre = asoc.getAsociacionNombre();
-					String nombreCorto = asoc.getAsociacionNombreCorto();
+				for (int i=0; i< asociaciones.size(); i++){
+					edu.um.eduadventspring.Model.Asociacion asoc = (edu.um.eduadventspring.Model.Asociacion) asociaciones.get(i);
+					String nombre = asoc.getNombre();
+					String nombreCorto = asoc.getNCorto();
 			%>
   					<tr> 
     					<td><%=i+1%></td>
 					    <td> 
-					      <a class="icon-pencil" href="accion.jsp?Accion=4&AsocId=<%=asoc.getAsociacionId()%>&unionId=<%=unionId%>"> </a> 
-					      <a href="javascript:Borrar('<%=asoc.getAsociacionId()%>')" class="icon-remove"></a> 
+					      <a class="icon-pencil" href="accion?Accion=4&AsocId=<%=asoc.getId()%>&unionId=<%=unionId%>"> </a> 
+					      <a href="javascript:Borrar('<%=asoc.getId()%>')" class="icon-remove"></a> 
 					    </td>
-					    <td><%=asoc.getAsociacionId() %></td>
+					    <td><%=asoc.getId() %></td>
 					    <td><%=nombre%></td>
 					    <td><%=nombreCorto%></td>
 					    <td><%=asoc.getFondoId() %></td>

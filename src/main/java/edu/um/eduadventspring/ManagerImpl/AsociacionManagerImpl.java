@@ -33,4 +33,9 @@ public class AsociacionManagerImpl implements AsociacionManager {
         return asociacionDao.findAll();
     }
 
+    @Override
+    public List<Asociacion> getAsociacionesByUnion(Long unionId) {
+        return asociacionDao.findByUnion_Id(unionId);
+    }
+
 }

@@ -70,6 +70,10 @@ public class Escuela implements BaseModel {
     @Column(length = 15, columnDefinition = "default 'firma.png'", nullable = false)
     private String firma;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "union_id", referencedColumnName = "union_id", nullable = false)
+    private Union union;
+
     @Column(length = 10)
     private String distrito;
 

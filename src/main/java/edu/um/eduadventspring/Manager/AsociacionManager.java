@@ -11,4 +11,6 @@ public interface AsociacionManager {
 
     HashMap<String, Asociacion> getAsociacionesMap();
 
+    List<Asociacion> getAsociacionesByUnion(Long union); 
+
 }
