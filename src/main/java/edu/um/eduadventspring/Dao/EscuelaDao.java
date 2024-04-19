@@ -21,5 +21,6 @@ public interface EscuelaDao extends JpaRepository<Escuela, Long> {
 
     Escuela findByEscuelaId(String escuelaId);
 
+    List<Escuela> findByAsociacionId_Id(Long asociacionId);
 }
 

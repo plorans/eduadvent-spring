@@ -9,4 +9,6 @@ public interface UnionManager {
     List<Union> getUnionList();
 
     Union getUnionByEscuela(String escuelaId);
+
+    Union getUnionById(Long id);
 }

@@ -13,4 +13,10 @@ public interface AsociacionManager {
 
     List<Asociacion> getAsociacionesByUnion(Long union); 
 
+    Asociacion saveAsociacion(Asociacion asociacion);
+
+    void deleteAsociacion(Long asociacion);
+
+    Asociacion getAsociacionById(Long id);
+
 }

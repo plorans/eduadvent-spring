@@ -21,7 +21,7 @@
 <%
 	String escuelaId = (String) session.getAttribute("escuela");
 	ArrayList<edu.um.eduadventspring.Model.Clasificacion> lisClasfin = (ArrayList<edu.um.eduadventspring.Model.Clasificacion>) request.getAttribute("lisClasfin");
-		
+
 %>
 <body>
 	<div id="content">

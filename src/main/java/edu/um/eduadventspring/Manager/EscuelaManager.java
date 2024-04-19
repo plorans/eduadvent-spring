@@ -1,5 +1,7 @@
 package edu.um.eduadventspring.Manager;
 
+import java.util.List;
+
 import edu.um.eduadventspring.Model.Escuela;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,4 +19,6 @@ public interface EscuelaManager {
     Mono<Escuela> getEscuela(String escuelaId);
 
     Flux<Escuela> getEscuelas();
+
+    List<Escuela> getEscuelasByAsociacion(Long asociacionId);
 }

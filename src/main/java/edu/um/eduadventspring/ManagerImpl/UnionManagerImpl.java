@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import edu.um.eduadventspring.Dao.EscuelaDao;
 import edu.um.eduadventspring.Dao.UnionDao;
 import edu.um.eduadventspring.Manager.UnionManager;
@@ -26,14 +28,6 @@ public class UnionManagerImpl implements UnionManager {
     @Override
     public List<Union> getUnionList() {
         List<Union> unionList = unionDao.findAll();
-
-        Collections.sort(unionList, new Comparator<Union>() {
-            @Override
-            public int compare(Union un1, Union un2) {
-                return un1.getId().compareTo(un2.getId());
-            }
-        });
-
         return unionList;
     }
 
@@ -41,6 +35,11 @@ public class UnionManagerImpl implements UnionManager {
     public Union getUnionByEscuela(String escuelaId) {
         Escuela escuela = escuelaDao.findByEscuelaId(escuelaId);
         return escuela.getUnion();
+    }
+
+    @Override
+    public Union getUnionById(Long id) {
+        return unionDao.findById(id).orElseThrow();
     }
 
 }

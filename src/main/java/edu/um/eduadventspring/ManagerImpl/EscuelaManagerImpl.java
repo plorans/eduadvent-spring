@@ -1,5 +1,7 @@
 package edu.um.eduadventspring.ManagerImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +89,11 @@ public class EscuelaManagerImpl implements EscuelaManager {
     @Override
     public Flux<Escuela> getEscuelas() {
         return Flux.fromIterable(escuelaDao.findAll());
+    }
+
+    @Override
+    public List<Escuela> getEscuelasByAsociacion(Long asociacionId) {
+        return escuelaDao.findByAsociacionId_Id(asociacionId);
     }
 
 }
